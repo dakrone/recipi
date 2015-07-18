@@ -1,0 +1,106 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "0.1.0",
+        "title": "reci-pi",
+        "description": "Personal web server written in Clojure to manage recipes and create shopping lists in Wunderlist."
+    },
+    "host": "localhost:8000",
+    "basePath": "/recipi",
+    "schemes": [
+        "https"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/recipes": {
+            "post": {
+                "description": "Creates a recipe",
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/recipe"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A successful response, returns an id for the recipe."
+                    },
+                    "400": {
+                        "description": "A failed response, most likely due to missing required variables."
+                    },
+                    "500": {
+                        "description": "Internal server error."
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "ingredient": {
+            "description": "An ingredient, consisting of an item description, the quantity and the measurement.",
+            "required": [
+                "item",
+                "quantity"
+            ],
+            "properties": {
+                "item": {
+                    "type": "string"
+                },
+                "quantity": {
+                    "type": "number",
+                    "format": "int32"
+                },
+                "measurement": {
+                    "type": "string",
+                    "enum": [
+                        "cup",
+                        "fluid ounce",
+                        "dry ounce",
+                        "pound",
+                        "each"
+                    ]
+                }
+            }
+        },
+        "recipe": {
+            "description": "A recipe, consisting of an array of ingredients and instructions.",
+            "required": [
+                "ingredients",
+                "instructions"
+            ],
+            "properties": {
+                "ingredients": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ingredient"
+                    }
+                },
+                "instructions": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/step"
+                    }
+                }
+            }
+        },
+        "step": {
+            "description": "One step, in an array of instructions.",
+            "required": [
+                "description"
+            ],
+            "properties": {
+                "description": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
