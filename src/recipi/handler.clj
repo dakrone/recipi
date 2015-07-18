@@ -1,11 +1,20 @@
 (ns recipi.handler
-  (:require [compojure.core :refer :all]
+  (:require [clojure.tools.logging :as log]
+            [compojure.core :refer :all]
             [compojure.route :as route]
-            [ring.middleware.defaults :refer [wrap-defaults site-defaults]]))
+            [ring.middleware.json :refer [wrap-json-response]]
+            [ring.util.response :refer [response]]))
 
 (defroutes app-routes
-  (GET "/" [] "Hello World")
-  (route/not-found "Not Found"))
+  (route/not-found 
+   (response {:message "Invalid URI."})))
 
-(def app
-  (wrap-defaults app-routes site-defaults))
+(defn wrap-log-response [handler]
+  (fn [req]
+    (log/info (str "Incoming request to '" (:uri req) "' received."))
+    (handler req)))
+
+(def app 
+  (-> app-routes
+      wrap-log-response
+      wrap-json-response))
