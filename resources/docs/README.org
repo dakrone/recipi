@@ -1,0 +1,51 @@
+* Reci-pi
+  Reci-pi is a personal web server I created to become more familiar with
+  various technologies. Aside from learning, the purpose of this project is a
+  way for my wife and I to store recipes and generate shopping lists with
+  Wunderlist.
+
+  Hopefully, this document also helps others looking to do something similar.
+
+** Raspberry Pi
+   This project, in all of its glory, is running on a Raspberry Pi, Model B,
+   running Raspbian.
+
+*** Why Pi?
+    Mostly because I've had it for a long while and never really did anything
+    with it.
+
+*** Duck DNS
+    I want to be able to access the webserver anywhere, not just on my local
+    network. To do this, I use [[http://www.duckdns.org/][Duck DNS]] along with some port forwarding.
+
+    The website has a tutorial for setting up the service on the Pi. However,
+    it's probably worth taking time to secure the Pi so only you can access it.
+    I took the following into consideration:
+    
+    - Disallow root login.
+    - Disallow password login, only use ssh keys.
+    - Change the SSH port from default.
+
+** Clojure
+   I've gone back and forth between Racket and Clojure to develop in. Until I
+   change my mind again, I've decided to go with Clojure. The support and
+   documentation for creating RESTful web servers in Clojure has been
+   bountiful and easier to follow than what's available for Racket.
+
+   Some quick notes regarding Clojure
+
+   - On average, the server takes about five minutes to start up on the Pi.
+   - There are many web server frameworks out there.
+     + 
+
+** Swagger
+   Swagger is similar to a WSDL for RESTful web services. The [[https://github.com/swagger-api/swagger-spec/blob/master/versions/2.0.md][spec]], as well as
+   an [[https://editor.swagger.io/][online editor]] are availble.
+
+** elasticsearch
+   As this is a work in progress, I haven't worked on any elasticsearch pieces
+   yet. I will update this after implementation.
+
+** Wunderlist
+   As this is a work in progress, I haven't worked on any Wunderlist pieces
+   yet. I will update this after implementation.
