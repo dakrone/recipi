@@ -1,22 +1,41 @@
 * Recipi
+  [[https://travis-ci.org/shellhead/recipi.svg?branch=master]]
+
   Recipi is a personal web server to store recipes and generate shopping lists
   with Wunderlist.
 
   I started this project to become more familiar with a variety of
   technologies. I've tried to keep notes from my trials and tribulations
-  throughout the project. You can find these notes in
-  =resources/docs/README.org=.
+  throughout the project. You can find these notes in =docs/README.org=.
+
+* Features
+  As this project is still in it's infancy, there aren't many features. Below
+  is a list of hopeful functionality.
+
+  - Store recipes.
+  - Search for recipes based on ingredients, cuisine, cooking time, etc.
+  - Generate a Wunderlist shopping list with all the required ingredients.
+  - Notify users when previously purchased ingredients may go bad.
+  - Search social networks (Reddit and Twitter) for recipes to suggest adding.
+  - More to come!
 
 * Usage
   Ensure you have [[http://leiningen.org/][leiningen]] and Java installed.
 
   #+BEGIN_SRC sh
-  lein ring server
+  lein ring server-headless
   #+END_SRC
 
 * Test
-  [[https://travis-ci.org/shellhead/recipi.svg?branch=master]]
+  Using [[https://github.com/marick/Midje][midje]] to test. If tests fail, you may have to add the following to
+  =~/.lein/profiles.clj=.
+
+  #+BEGIN_SRC clojure
+  {:user {:plugins [[lein-midje "3.1.3"]]}}
+  #+END_SRC
+
+  To kick off the tests, run the following.
 
   #+BEGIN_SRC sh
-  lein test
+  lein midje :autotest
   #+END_SRC

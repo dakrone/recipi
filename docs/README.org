@@ -1,5 +1,5 @@
-* Reci-pi
-  Reci-pi is a personal web server I created to become more familiar with
+* Recipi
+  Recipi is a personal web server I created to become more familiar with
   various technologies. Aside from learning, the purpose of this project is a
   way for my wife and I to store recipes and generate shopping lists with
   Wunderlist.
@@ -42,9 +42,8 @@
    Swagger is similar to a WSDL for RESTful web services. The [[https://github.com/swagger-api/swagger-spec/blob/master/versions/2.0.md][spec]], as well as
    an [[https://editor.swagger.io/][online editor]] are availble.
 
-** elasticsearch
-   As this is a work in progress, I haven't worked on any elasticsearch pieces
-   yet. I will update this after implementation.
+** Elasticsearch
+   I decided to store the recipes using Elasticsearch. 
 
 ** Wunderlist
    As this is a work in progress, I haven't worked on any Wunderlist pieces
