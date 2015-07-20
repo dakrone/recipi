@@ -9,6 +9,8 @@
                  [compojure "1.3.1"]]
   :plugins [[lein-ring "0.8.13"]]
   :ring {:handler recipi.handler/app}
-  :profiles
+  :profiles 
   {:dev {:dependencies [[javax.servlet/servlet-api "2.5"]
-                        [ring-mock "0.1.5"]]}})
+                        [ring-mock "0.1.5"]
+                        [midje "1.7.0"]]
+         :plugins [[lein-midje "3.0.0"]]}})

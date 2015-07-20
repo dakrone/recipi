@@ -1,43 +1,46 @@
 (ns recipi.handler-test
   (:require [clojure.test :refer :all]
             [ring.mock.request :refer :all]
-            [recipi.handler :refer :all]))
+            [recipi.handler :refer :all]
+            [midje.sweet :refer :all]))
 
 (defn get-content-type [response]
   "Returns the value for the Content-Type header"
   (get-in response [:headers "Content-Type"]))
 
-(deftest test-app
-  (testing "A GET request to '/' returns the home page"
-    (let [response (app (request :get "/"))]
-      (is (= (:status response) 200))
-      (is (= (get-content-type response) "text/html"))))
-  
-  (testing "A POST request to '/recipes' creates a new recipe"
-    (let [response (app (request :post "/recipes"))]
-      (is (= (:status response) 201))
-      (is (= (get-content-type response) "application/json"))))
-  
-  (testing "A GET request to '/recipes/:id' returns a recipe"
-    (let [response (app (request :get "/recipes/1"))]
-      (is (= (:status response) 200))
-      (is (= (get-content-type response) "application/json"))))
+(def json "application/json; charset=utf-8")
 
-  (testing "A GET request to '/recipes' returns a list of recipes"
-    (let [response (app (request :get "/recipes"))]
-      (is (= (:status response) 200))
-      (is (= (get-content-type response) "application/json"))))
-  
-  (testing "A DELETE request to '/recipes/:id' deletes a recipe"
+(facts "about the web server web servers"
+  (fact "A get request '/' returns the home page"
+    (let [response (app (request :get "/"))]
+      (:status response) => 200
+      (get-content-type response) => "text/html"))
+
+  (fact "A post request '/recipes' creates a new recipe"
+    (let [response (app (request :post "/recipes"))]
+      (:status response) => 200
+      (get-content-type response) => json))
+
+  (fact "A get request '/recipes' returns a list of recipes"
+    (let [response (app (request :get "/"))]
+      (:status response) => 200
+      (get-content-type response) => json))
+
+  (fact "A get request '/recipes/:id' returns a recipe"
     (let [response (app (request :get "/recipes/1"))]
-      (is (= (:status response) 200))
-      (is (= (get-content-type response) "application/json"))))
-  
-  (testing "A PUT request to '/recipes/:id' updates a recipe"
-    (let [response (app (request :get "/recipes/1"))]
-      (is (= (:status response) 200))
-      (is (= (get-content-type response) "application/json"))))
-  
-  (testing "Any request made to other URIs returns a 404"
-    (let [response (app (request :get "/baduri"))]
-      (is (= (:status response) 404)))))
+      (:status response) => 200
+      (get-content-type response) => json))
+
+  (fact "A delete request '/recipes/:id' deletes a recipe"
+    (let [response (app (request :delete "/recipes/1"))]
+      (:status response) => 200
+      (get-content-type response) => json))
+
+  (fact "A put request '/recipes/:id' updates a recipe"
+    (let [response (app (request :put "/recipes/1"))]
+      (:status response) => 200
+      (get-content-type response) => json))
+
+  (fact "Any request made to another endpoint returns a 404"
+    (let [response (app (request :put "/recipes/1"))]
+      (:status response) => 404)))

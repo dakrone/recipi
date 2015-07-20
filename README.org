@@ -1,5 +1,5 @@
-* Reci-pi
-  Reci-pi is a personal web server to store recipes and generate shopping lists
+* Recipi
+  Recipi is a personal web server to store recipes and generate shopping lists
   with Wunderlist.
 
   I started this project to become more familiar with a variety of
@@ -15,7 +15,7 @@
   #+END_SRC
 
 * Test
-  [[https://travis-ci.org/shellhead/reci-pi.svg?branch=master]]
+  [[https://travis-ci.org/shellhead/recipi.svg?branch=master]]
 
   #+BEGIN_SRC sh
   lein test
