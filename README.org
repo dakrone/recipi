@@ -26,6 +26,10 @@
   lein ring server-headless
   #+END_SRC
 
+* Documentation
+  After the server is started, point your browser at
+  =http://localhost:3000/swagger= for some pretty Swagger documentation.
+
 * Test
   Using [[https://github.com/marick/Midje][midje]] to test. If tests fail, you may have to add the following to
   =~/.lein/profiles.clj=.
@@ -34,7 +38,8 @@
   {:user {:plugins [[lein-midje "3.1.3"]]}}
   #+END_SRC
 
-  To kick off the tests, run the following.
+  To kick off the tests (and keep the session open to rerun tests), run the
+  following.
 
   #+BEGIN_SRC sh
   lein midje :autotest

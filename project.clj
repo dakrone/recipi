@@ -4,10 +4,12 @@
   :min-lein-version "2.0.0"
   :dependencies [[org.clojure/clojure "1.6.0"]
                  [org.clojure/tools.logging "0.3.1"]
+                 [compojure "1.3.1"]
+                 [metosin/compojure-api "0.22.1"]
+                 [metosin/ring-swagger "0.20.4"]
                  [ring/ring-defaults "0.1.2"]
                  [ring/ring-json "0.3.1"]
-                 [clojurewerkz/elastisch "2.1.0"]
-                 [compojure "1.3.1"]]
+                 [clojurewerkz/elastisch "2.1.0"]]
   :plugins [[lein-ring "0.8.13"]]
   :ring {:handler recipi.app/app}
   :profiles 

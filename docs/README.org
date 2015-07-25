@@ -32,15 +32,27 @@
    documentation for creating RESTful web servers in Clojure has been
    bountiful and easier to follow than what's available for Racket.
 
-   Some quick notes regarding Clojure
+   Some quick notes regarding Clojure.
 
    - On average, the server takes about five minutes to start up on the Pi.
    - There are many web server frameworks out there.
-     + 
+     + [[https://github.com/ring-clojure/ring][ring]] (very low level, most others frameworks build on top of it)
+     + [[https://github.com/weavejester/compojure][compojure]]
+     + [[https://github.com/caribou/caribou][caribou]]
+     + [[https://github.com/pedestal/pedestal][pedestal]]
+     + [[https://github.com/http-kit/http-kit][http-kit]]
 
 ** Swagger
    Swagger is similar to a WSDL for RESTful web services. The [[https://github.com/swagger-api/swagger-spec/blob/master/versions/2.0.md][spec]], as well as
    an [[https://editor.swagger.io/][online editor]] are availble.
+
+   In my experience, if you have a RESTful web service or API, you should have
+   a swagger. Although the documentation is great, I think the contract it
+   defines is even more useful. I've (shamefully) exposed APIs without
+   Swagger or defining any real contract or schema. 
+
+   The result was pretty terrible. Documentation, code maintainability and
+   readibilty all suffered. I vow, never again.
 
 ** Elasticsearch
    I decided to store the recipes using Elasticsearch. 
