@@ -9,7 +9,8 @@
                  [metosin/ring-swagger "0.20.4"]
                  [ring/ring-defaults "0.1.2"]
                  [ring/ring-json "0.3.1"]
-                 [clojurewerkz/elastisch "2.1.0"]]
+                 [clojurewerkz/elastisch "2.1.0"]
+                 [prismatic/schema "0.4.3"]]
   :plugins [[lein-ring "0.8.13"]]
   :ring {:handler recipi.app/app}
   :profiles 

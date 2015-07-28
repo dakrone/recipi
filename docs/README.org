@@ -41,18 +41,22 @@
      + [[https://github.com/caribou/caribou][caribou]]
      + [[https://github.com/pedestal/pedestal][pedestal]]
      + [[https://github.com/http-kit/http-kit][http-kit]]
+     + many more...
 
 ** Swagger
    Swagger is similar to a WSDL for RESTful web services. The [[https://github.com/swagger-api/swagger-spec/blob/master/versions/2.0.md][spec]], as well as
-   an [[https://editor.swagger.io/][online editor]] are availble.
+   an [[https://editor.swagger.io/][online editor]] are availble. Swagger provides users with great
+   documentation and developers with an easier way to maintain and write new
+   functionality.
 
-   In my experience, if you have a RESTful web service or API, you should have
-   a swagger. Although the documentation is great, I think the contract it
-   defines is even more useful. I've (shamefully) exposed APIs without
-   Swagger or defining any real contract or schema. 
+   I've (shamefully) written some RESTful web services with out a Swagger. The
+   result was mediocre documentation and source code that was difficult to read
+   and maintain. Furthermore, when changes needed to be made, both the source
+   code and documentation had to be updated.
 
-   The result was pretty terrible. Documentation, code maintainability and
-   readibilty all suffered. I vow, never again.
+   Never again.
+
+   If you're not a fan of Swagger, there is [[http://raml.org/index.html][RAML]].
 
 ** Elasticsearch
    I decided to store the recipes using Elasticsearch. 
