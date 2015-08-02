@@ -10,11 +10,12 @@
                  [ring/ring-defaults "0.1.2"]
                  [ring/ring-json "0.3.1"]
                  [clojurewerkz/elastisch "2.1.0"]
-                 [prismatic/schema "0.4.3"]]
+                 [prismatic/schema "0.4.3"]
+                 [clj-http-fake "1.0.1"]
+                 [clj-http "2.0.0"]]
   :plugins [[lein-ring "0.8.13"]]
   :ring {:handler recipi.app/app}
-  :profiles 
-  {:dev {:dependencies [[javax.servlet/servlet-api "2.5"]
-                        [ring-mock "0.1.5"]
-                        [midje "1.7.0"]]
-         :plugins [[lein-midje "3.0.0"]]}})
+  :profiles {:dev 
+             {:dependencies [[javax.servlet/servlet-api "2.5"]
+                             [midje "1.7.0"]]
+              :plugins [[lein-midje "3.0.0"]]}})
