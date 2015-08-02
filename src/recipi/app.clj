@@ -8,9 +8,8 @@
             [ring.util.response :refer [response]]
             [ring.util.http-response :refer :all]
             [schema.core :as schema]
-            [clojurewerkz.elastisch.native :as es]
-            [clojurewerkz.elastisch.native.document :as doc]
-            [clojurewerkz.elastisch.query :as q]))
+            [clj-http.client :as http]
+            [cheshire.core :as json]))
 
 (schema/defschema Ingredient
   {:item schema/Str
@@ -26,37 +25,45 @@
    :instructions [Step]
    (schema/optional-key :id) schema/Str})
 
-(defn connect-es 
-  "Connect to the elasticsearch cluster"
-  []
-  (es/connect [["127.0.0.1" 9300]]
-    {"cluster.name" "elasticsearch"}))
+(defn es-url
+  "Returns the URL to use for a given index, type and ID"
+  [index type id]
+  (str "http://localhost:9200/" index "/" type "/" id))
 
 (defn create-recipe 
   "Store a recipe to the server."
   [recipe]
-  (let [conn (connect-es)
-        res (doc/create conn "recipes" "recipe" recipe)]
-    (if
-      (nil? (:error res)) (created {:id (:id res) :recipe recipe})
-      (internal-server-error {:error (:error res) :recipe recipe}))))
+  (let [resp (-> (http/post (es-url "recipes" "recipe" nil)
+                            {:as :json
+                             :throw-exceptions false
+                             :body (json/encode recipe)})
+                 :body)]
+    (if (nil? (:error resp))
+      (created {:id (:id resp) :recipe recipe})
+      (internal-server-error {:error (:error resp) :recipe recipe}))))
 
 (defn get-recipe-list
   "Returns a list of recipes"
   []
-  (let [conn (connect-es)
-        res (doc/search conn "recipes" "recipe")]
-    (if
-      (nil? (:error res)) (ok (map :_source (:hits (:hits res))))
+  (let [query {:query {:match_all {}}}
+        resp (-> (http/post (es-url "recipes" "recipe" "_search")
+                            {:as :json
+                             :throw-exceptions false
+                             :body (json/encode query)})
+                 :body)]
+    (if (nil? (:error resp))
+      (ok (map :_source (:hits (:hits resp))))
       (not-found {:error "Recipe list could not be retrieved."}))))
 
 (defn get-recipe
   "Returns a specific recipe"
   [id]
-  (let [conn (connect-es)
-        res (doc/get conn "recipes" "recipe" id)]
-    (if
-      (true? (:found res)) (ok (:source res))
+  (let [resp (-> (http/get (es-url "recipes" "recipe" id)
+                           {:as :json
+                            :throw-exceptions false})
+                 :body)]
+    (if (:found resp)
+      (ok (:_source resp))
       (not-found {:error (str "Recipe with id " id " not found!")}))))
 
 (defn log-on-receive

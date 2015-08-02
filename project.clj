@@ -11,6 +11,7 @@
                  [ring/ring-json "0.3.1"]
                  [clojurewerkz/elastisch "2.1.0"]
                  [prismatic/schema "0.4.3"]
+                 [cheshire "5.5.0"]
                  [clj-http-fake "1.0.1"]
                  [clj-http "2.0.0"]]
   :plugins [[lein-ring "0.8.13"]]
